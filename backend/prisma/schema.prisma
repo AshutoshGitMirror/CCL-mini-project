@@ -1,0 +1,134 @@
+// PlacementHub Prisma schema — PostgreSQL (works identically on local Docker
+// Postgres and the real Amazon RDS instance; only DATABASE_URL changes).
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  STUDENT
+  RECRUITER
+  OFFICER
+}
+
+enum ApplicationStatus {
+  APPLIED
+  SHORTLISTED
+  REJECTED
+  ROUND_IN_PROGRESS
+  OFFERED
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role     @default(STUDENT)
+  createdAt    DateTime @default(now())
+
+  profile       StudentProfile?
+  applications  Application[]
+  notifications Notification[]
+}
+
+model StudentProfile {
+  id             String   @id @default(cuid())
+  userId         String   @unique
+  cgpa           Float?
+  branch         String?
+  graduationYear Int?
+  skills         String[] @default([])
+  phone          String?
+  emailOptIn     Boolean  @default(true)
+  updatedAt      DateTime @updatedAt
+
+  user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  resume       Resume?
+}
+
+model Resume {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  filename        String
+  s3Key           String
+  extractedSkills String[]  @default([])
+  parsedAt        DateTime?
+
+  profile StudentProfile @relation(fields: [userId], references: [userId], onDelete: Cascade)
+}
+
+model Company {
+  id        String  @id @default(cuid())
+  name      String  @unique
+  drives    Drive[]
+}
+
+model Drive {
+  id          String      @id @default(cuid())
+  title       String
+  companyId   String
+  role        String
+  description String
+  package     String?
+  status      String      @default("OPEN")
+
+  minCgpa     Float?
+  branches    String[] @default([])
+  skills      String[] @default([])
+  minSkills   Int      @default(1)
+  roundsTotal Int      @default(3)
+  deadline    DateTime?
+  createdAt   DateTime @default(now())
+
+  companyRef   Company       @relation(fields: [companyId], references: [id])
+  applications Application[]
+}
+
+model Application {
+  id           String           @id @default(cuid())
+  driveId      String
+  userId       String
+  status       ApplicationStatus @default(APPLIED)
+  matchScore   Float            @default(0)
+  currentRound Int              @default(0)
+  rejectedReasons String[]      @default([])
+  createdAt    DateTime         @default(now())
+
+  drive  Drive          @relation(fields: [driveId], references: [id], onDelete: Cascade)
+  user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rounds InterviewRound[]
+
+  @@unique([driveId, userId])
+}
+
+model InterviewRound {
+  id            String   @id @default(cuid())
+  applicationId String
+  roundNumber   Int
+  result        String
+  scheduledAt   DateTime?
+  score         Float?
+  notes         String?
+  createdAt     DateTime @default(now())
+
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String    @id @default(cuid())
+  userId    String?
+  driveId   String?
+  subject   String
+  message   String
+  channel   String    @default("INAPP") // SNS | INAPP
+  messageId String?
+  status    String    @default("LOGGED")
+  createdAt DateTime  @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+}

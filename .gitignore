@@ -1,0 +1,22 @@
+# infra
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+crash.log
+
+# secrets / local files
+#   handoff.md carries the LIVE db password — send over WhatsApp/DM, never commit
+.env
+.env.*
+handoff.md
+handoff-real-credentials.txt
+
+# node
+node_modules/
+dist/
+build/
+
+# logs / misc
+*.log
+.DS_Store

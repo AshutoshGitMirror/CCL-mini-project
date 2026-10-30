@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: placement
+      POSTGRES_PASSWORD: placement
+      POSTGRES_DB: placementhub
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U placement']
+      interval: 3s
+      timeout: 3s
+      retries: 12
+
+  localstack:
+    image: localstack/localstack:3
+    environment:
+      SERVICES: s3,sns,cloudwatch
+      AWS_DEFAULT_REGION: us-east-1
+      DEBUG: '0'
+    ports:
+      - '4566:4566'
+    # Docker Desktop (Windows/macOS) works the same; volume only on Linux hosts
+
+volumes:
+  pgdata:

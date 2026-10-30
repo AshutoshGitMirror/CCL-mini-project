@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+/* ===================== "Hall Ticket" identity tokens =====================
+   paper   #EFF2F5  cartridge stock, cool not creamy
+   ink     #17233B  exam-ink navy: text + rules
+   overprint #21389B office-print blue: links, focus, selection
+   ledger  #12633A  ledger green: SHORTLISTED / OFFERED only
+   seal    #B42318  sealing wax: REJECTED / destructive only
+   Fonts: Bricolage Grotesque (voice) Instrument Sans (prose) Azeret Mono (data)
+========================================================================= */
+
+@theme {
+  --font-display: "Bricolage Grotesque", var(--font-sans);
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Azeret Mono", ui-monospace, monospace;
+
+  --color-paper: #eff2f5;
+  --color-fold: #e2e8ef;
+  --color-ink: #17233b;
+  --color-ink-soft: #46536e;
+  --color-ink-faint: #8b96ab;
+  --color-overprint: #21389b;
+  --color-ledger: #12633a;
+  --color-seal: #b42318;
+
+  --animate-lift: ticket-lift 0.7s cubic-bezier(0.19, 1, 0.22, 1) both;
+}
+
+@keyframes ticket-lift {
+  from { opacity: 0; transform: translateY(18px) rotate(1.2deg); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: #eff2f5;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  /* faint page-grain so large paper fields never look flat */
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(23, 35, 59, 0.016) 0px,
+    rgba(23, 35, 59, 0.016) 1px,
+    transparent 1px,
+    transparent 28px强者
+  );
+}
+
+::selection { background: var(--color-overprint); color: #fff; }
+
+:focus-visible {
+  outline: 2px solid var(--color-overprint);
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb { background: #c3ccd8; border-radius: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+
+@layer components {
+  /* ticket = document surface; 2px ink border, sharp, flat */
+  .ticket {
+    background: #fff;
+    border: 2px solid var(--color-ink);
+    box-shadow: 4px 4px 0 0 var(--color-ink);
+  }
+  /* double rule, the classic admitted-card separator */
+  .rule-double {
+    border-top: 3px solid var(--color-ink);
+    box-shadow: 0 4px 0 -2px var(--color-ink);
+    height: 3px;
+  }
+  .rule-1px { border-top: 1px solid var(--color-ink); }
+
+  /* perforation line between ticket segments */
+  .perf {
+    height: 0;
+    border-top: 2px dashed var(--color-ink-faint);
+    position: relative;
+  }
+
+  .btn-ink {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    border: 2px solid var(--color-ink); background: var(--color-ink); color: #fff;
+    padding: 0.66rem 1.15rem; font-weight: 600; font-size: 0.875rem;
+    box-shadow: 3px 3px 0 0 rgba(23, 35, 59, 0.25);
+    transition: background .15s ease, transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-ink:hover { background: var(--color-overprint); border-color: var(--color-overprint); }
+  .btn-ink:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 0 rgba(23,35,59,.25); }
+  .btn-ink:disabled { opacity: .45; pointer-events: none; }
+
+  .btn-form {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+    border: 2px solid var(--color-ink); background: #fff; color: var(--color-ink);
+    padding: 0.62rem 1.05rem; font-weight: 600; font-size: 0.875rem;
+    transition: background .15s ease;
+  }
+  .btn-form:hover { background: var(--color-fold); }
+  .btn-form:disabled { opacity: .45; pointer-events: none; }
+
+  .field {
+    width: 100%; border: 0; border-bottom: 2px solid var(--color-ink);
+    background: transparent; padding: 0.45rem 0.05rem; font-size: 0.925rem;
+    color: var(--color-ink);
+  }
+  .field::placeholder { color: #98a2b3; }
+  .field:focus { outline: none; border-bottom-color: var(--color-overprint); }
+  .label {
+    display: block; margin-bottom: 0.25rem; font-size: 0.7rem; font-weight: 600;
+    color: var(--color-ink-soft); letter-spacing: 0.02em;
+  }
+  select.field {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--color-ink) 50%),
+                      linear-gradient(135deg, var(--color-ink) 50%, transparent 50%);
+    background-position: calc(100% - 14px) 55%, calc(100% - 9px) 55%;
+    background-size: 5px 5px;
+    background-repeat: no-repeat;
+  }
+
+  /* rectangular checkbox, form-spec */
+  .box {
+    height: 1.05rem; width: 1.05rem; flex: none;
+    appearance: none; border: 2px solid var(--color-ink); background: #fff;
+    display: inline-grid; place-content: center;
+  }
+  .box:checked { background: var(--color-ink); }
+  .box:checked::before { content: ""; width: 0.55rem; height: 0.32rem; border: 2px solid #fff; border-top: 0; border-right: 0; transform: rotate(-45deg) translateY(-1px); }
+
+  /* status stamps — color only ever means something */
+  .stamp {
+    display: inline-flex; align-items: center; gap: 0.3rem;
+    font-family: var(--font-mono); font-size: 0.66rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    border: 2px solid currentColor; padding: 0.18rem 0.5rem; border-radius: 2px;
+    transform: rotate(-1.5deg);
+  }
+  .stamp-ink    { color: var(--color-ink); }
+  .stamp-open   { color: var(--color-ledger); background: color-mix(in srgb, var(--color-ledger) 8%, white); }
+  .stamp-gone   { color: var(--color-ink-faint); }
+  .stamp-round  { color: var(--color-overprint); }
+  .stamp-offer  { color: #fff; background: var(--color-ledger); border-color: var(--color-ledger); }
+  .stamp-no     { color: var(--color-seal); background: color-mix(in srgb, var(--color-seal) 7%, white); }
+
+  .mono { font-family: var(--font-mono); }
+}
