@@ -1,0 +1,184 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 480" width="100%" height="100%" style="background:#ffffff; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="3" in="SourceAlpha"/>
+      <feOffset dx="1" dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <marker id="arr" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284c7"/>
+    </marker>
+  </defs>
+
+  <!-- Title Banner -->
+  <rect x="0" y="0" width="1000" height="45" fill="#0f172a"/>
+  <text x="500" y="28" fill="#ffffff" font-size="15" font-weight="700" text-anchor="middle">Figure 3.1: PlacementHub Modular Functional Block Diagram</text>
+
+  <!-- 4 Big Horizontal Stages -->
+  
+  <!-- STAGE 1: INGESTION -->
+  <g transform="translate(20, 65)">
+    <rect x="0" y="0" width="220" height="395" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="220" height="32" rx="8" fill="#0284c7"/>
+    <text x="110" y="21" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">1. Data Ingestion &amp; UI Layer</text>
+
+    <!-- Sub-blocks -->
+    <g transform="translate(12, 45)">
+      <rect x="0" y="0" width="196" height="65" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#0f172a" font-size="10" font-weight="700">Student Profile Portal</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• Verified Avatars, USN, CGPA</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• Branch, Batch, Social Dossier</text>
+    </g>
+
+    <g transform="translate(12, 120)">
+      <rect x="0" y="0" width="196" height="65" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#0f172a" font-size="10" font-weight="700">Resume Upload Broker</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• PDF Pre-signed Handshake</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• Direct S3 PUT (SigV4 Auth)</text>
+    </g>
+
+    <g transform="translate(12, 195)">
+      <rect x="0" y="0" width="196" height="65" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#0f172a" font-size="10" font-weight="700">Recruiter Drive Console</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• Set CGPA Cutoffs &amp; CTC</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• Technical Skill Gates &amp; Rounds</text>
+    </g>
+
+    <g transform="translate(12, 270)">
+      <rect x="0" y="0" width="196" height="65" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#0f172a" font-size="10" font-weight="700">TPO Broadcast Desk</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• Campus-wide Alert Triggers</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• Talent Directory &amp; CSV Export</text>
+    </g>
+
+    <g transform="translate(12, 345)">
+      <rect x="0" y="0" width="196" height="40" rx="4" fill="#e0f2fe"/>
+      <text x="98" y="24" fill="#0369a1" font-size="9" font-weight="700" text-anchor="middle">React 18 SPA + Vite Client</text>
+    </g>
+  </g>
+
+  <!-- STAGE 2: PROCESSING ENGINES -->
+  <g transform="translate(265, 65)">
+    <rect x="0" y="0" width="235" height="395" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="235" height="32" rx="8" fill="#8b5cf6"/>
+    <text x="117" y="21" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">2. Automated Processing Engines</text>
+
+    <g transform="translate(12, 45)">
+      <rect x="0" y="0" width="211" height="85" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#581c87" font-size="10" font-weight="700">Amazon Textract OCR Pipeline</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• LINE &amp; WORD Block Detection</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• 200+ Keyword Skill Dictionary</text>
+      <text x="10" y="62" fill="#475569" font-size="8.5">• Regex Word Boundary Gating</text>
+      <text x="10" y="76" fill="#475569" font-size="8.5">• Automatic CGPA &amp; Branch Parsing</text>
+    </g>
+
+    <g transform="translate(12, 140)">
+      <rect x="0" y="0" width="211" height="85" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#581c87" font-size="10" font-weight="700">ATS Shortlisting &amp; Scoring Engine</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• 40% Academic CGPA Weight</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• 60% Verified Skill Overlap Weight</text>
+      <text x="10" y="62" fill="#475569" font-size="8.5">• Hard Gate (Min CGPA &amp; Branch)</text>
+      <text x="10" y="76" fill="#475569" font-size="8.5">• Instant SHORTLISTED/REJECTED</text>
+    </g>
+
+    <g transform="translate(12, 235)">
+      <rect x="0" y="0" width="211" height="70" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#581c87" font-size="10" font-weight="700">Interview Workflow State Machine</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• APPLIED &#8594; SHORTLISTED</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• Multi-Round Advancement</text>
+      <text x="10" y="62" fill="#475569" font-size="8.5">• Final Offer LOI Promotion</text>
+    </g>
+
+    <g transform="translate(12, 315)">
+      <rect x="0" y="0" width="211" height="70" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#581c87" font-size="10" font-weight="700">Authentication &amp; Security</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• JWT Stateless Verification (7d)</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• bcrypt Salted Hashing (cost 10)</text>
+      <text x="10" y="62" fill="#475569" font-size="8.5">• Zod Strict Parameter Sanitization</text>
+    </g>
+  </g>
+
+  <!-- STAGE 3: PERSISTENCE & STORAGE -->
+  <g transform="translate(525, 65)">
+    <rect x="0" y="0" width="220" height="395" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="220" height="32" rx="8" fill="#059669"/>
+    <text x="110" y="21" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">3. Persistence &amp; Cloud Storage</text>
+
+    <g transform="translate(12, 45)">
+      <rect x="0" y="0" width="196" height="130" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#065f46" font-size="10" font-weight="700">Amazon RDS (PostgreSQL 16)</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• User &amp; StudentProfile Tables</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• Company &amp; Placement Drives</text>
+      <text x="10" y="62" fill="#475569" font-size="8.5">• Applications &amp; InterviewRounds</text>
+      <text x="10" y="76" fill="#475569" font-size="8.5">• Dual-Ledger Notification Audit</text>
+      <text x="10" y="90" fill="#475569" font-size="8.5">• Compound Unique Constraints</text>
+      <text x="10" y="104" fill="#475569" font-size="8.5">• ACID Strict Relational Model</text>
+      <text x="10" y="118" fill="#475569" font-size="8.5">• Prisma 6 Type-Safe Client</text>
+    </g>
+
+    <g transform="translate(12, 190)">
+      <rect x="0" y="0" width="196" height="100" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#065f46" font-size="10" font-weight="700">Amazon S3 Object Storage</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• <code>resumes/{userId}/*.pdf</code></text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• Pre-Signed PUT/GET Broker</text>
+      <text x="10" y="62" fill="#475569" font-size="8.5">• Server-Side Encryption (AES256)</text>
+      <text x="10" y="76" fill="#475569" font-size="8.5">• S3 Block Public Access Enabled</text>
+      <text x="10" y="90" fill="#475569" font-size="8.5">• App Deployment Zip Bundles</text>
+    </g>
+
+    <g transform="translate(12, 305)">
+      <rect x="0" y="0" width="196" height="80" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#065f46" font-size="10" font-weight="700">LocalStack / Docker Emulation</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• Local PostgreSQL on 5432</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• LocalStack AWS S3/SNS on 4566</text>
+      <text x="10" y="62" fill="#475569" font-size="8.5">• Zero Cloud Cost Local Dev Mode</text>
+      <text x="10" y="76" fill="#475569" font-size="8.5">• Environment Switchable</text>
+    </g>
+  </g>
+
+  <!-- STAGE 4: OUTPUT & OBSERVABILITY -->
+  <g transform="translate(770, 65)">
+    <rect x="0" y="0" width="210" height="395" rx="8" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" filter="url(#shadow)"/>
+    <rect x="0" y="0" width="210" height="32" rx="8" fill="#d97706"/>
+    <text x="105" y="21" fill="#ffffff" font-size="11" font-weight="700" text-anchor="middle">4. Output &amp; Observability</text>
+
+    <g transform="translate(12, 45)">
+      <rect x="0" y="0" width="186" height="75" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#92400e" font-size="10" font-weight="700">Amazon SNS Fanout</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• Real-time Drive Announcements</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• Email Protocol Endpoints</text>
+      <text x="10" y="62" fill="#475569" font-size="8.5">• Cross-Account Fallback Topic</text>
+    </g>
+
+    <g transform="translate(12, 130)">
+      <rect x="0" y="0" width="186" height="75" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#92400e" font-size="10" font-weight="700">Amazon CloudWatch</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• High-CPU Alarm (>80%, 2x60s)</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• In-Guest Agent Log Streaming</text>
+      <text x="10" y="62" fill="#475569" font-size="8.5">• StatusCheck Health Dashboard</text>
+    </g>
+
+    <g transform="translate(12, 215)">
+      <rect x="0" y="0" width="186" height="75" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#92400e" font-size="10" font-weight="700">Admit Card &amp; Offer LOI</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• Printable Campus Hall Ticket</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• Candidate Photo, USN, Venue</text>
+      <text x="10" y="62" fill="#475569" font-size="8.5">• Formal Company Offer Letter</text>
+    </g>
+
+    <g transform="translate(12, 300)">
+      <rect x="0" y="0" width="186" height="85" rx="6" fill="#ffffff" stroke="#94a3b8"/>
+      <text x="10" y="18" fill="#92400e" font-size="10" font-weight="700">Analytics &amp; CSV Export</text>
+      <text x="10" y="34" fill="#475569" font-size="8.5">• Conversion Rate (Placed / Total)</text>
+      <text x="10" y="48" fill="#475569" font-size="8.5">• Branch-wise Placement Stats</text>
+      <text x="10" y="62" fill="#475569" font-size="8.5">• Highest &amp; Average CTC (LPA)</text>
+      <text x="10" y="76" fill="#475569" font-size="8.5">• One-Click Interview CSV Export</text>
+    </g>
+  </g>
+
+  <!-- Connectors between stages -->
+  <line x1="240" y1="260" x2="265" y2="260" stroke="#0284c7" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="500" y1="260" x2="525" y2="260" stroke="#0284c7" stroke-width="2" marker-end="url(#arr)"/>
+  <line x1="745" y1="260" x2="770" y2="260" stroke="#0284c7" stroke-width="2" marker-end="url(#arr)"/>
+</svg>

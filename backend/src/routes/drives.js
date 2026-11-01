@@ -7,18 +7,29 @@ import { evaluateDrive } from '../lib/shortlist.js';
 
 const router = Router();
 
+// The UI sends empty strings for optional fields; normalise them away before
+// validation so a recruiter can leave "package" or "deadline" blank.
+const blankToUndefined = (value) =>
+  typeof value === 'string' && value.trim() === '' ? undefined : value;
+
 const driveSchema = z.object({
-  title: z.string().min(3),
-  company: z.string().min(2),
-  role: z.string().min(2),
-  description: z.string().min(10),
-  package: z.string().min(2).optional(),
-  minCgpa: z.coerce.number().min(0).max(10).optional(),
-  branches: z.array(z.string()).default([]),
-  skills: z.array(z.string()).default([]),
+  title: z.string().trim().min(3),
+  company: z.string().trim().min(2),
+  role: z.string().trim().min(2),
+  description: z.string().trim().min(10),
+  package: z.preprocess(blankToUndefined, z.string().min(2).optional()),
+  location: z.preprocess(blankToUndefined, z.string().min(2).optional()),
+  jobType: z.preprocess(blankToUndefined, z.string().min(2).optional()),
+  minCgpa: z.preprocess(
+    blankToUndefined,
+    z.coerce.number().min(0).max(10).optional()
+  ),
+  branches: z.array(z.string().trim().min(1)).default([]),
+  skills: z.array(z.string().trim().min(1)).default([]),
   minSkills: z.coerce.number().int().min(1).max(10).default(1),
   roundsTotal: z.coerce.number().int().min(1).max(8).default(3),
-  deadline: z.string().datetime().or(z.string().min(4)),
+  deadline: z.preprocess(blankToUndefined, z.string().min(4).optional()),
+  broadcast: z.boolean().optional(),
 });
 
 // list drives (students see OPEN; recruiters/officers see all)
@@ -96,20 +107,21 @@ router.post('/:id/apply', requireAuth('STUDENT'), async (req, res, next) => {
   }
 });
 
-// recruiter/officer: applicants for one drive
+// recruiter/officer: publish a new drive notice (and optionally fan out SNS)
 router.post('/', requireAuth('RECRUITER', 'OFFICER'), async (req, res, next) => {
   try {
     const data = driveSchema.parse(req.body);
     const { broadcast: sendAlert, ...fields } = data;
 
     const company = await prisma.company.upsert({
-      where: { name: data.company },
+      where: { name: fields.company },
       update: {},
-      create: { name: data.company },
+      create: { name: fields.company },
     });
 
-    const parsedDeadline = new Date(data.deadline);
-    const deadline = Number.isNaN(parsedDeadline.valueOf()) ? null : parsedDeadline;
+    const parsedDeadline = data.deadline ? new Date(data.deadline) : null;
+    const deadline =
+      parsedDeadline && !Number.isNaN(parsedDeadline.valueOf()) ? parsedDeadline : null;
 
     const drive = await prisma.drive.create({
       data: {
@@ -117,6 +129,8 @@ router.post('/', requireAuth('RECRUITER', 'OFFICER'), async (req, res, next) => 
         role: data.role,
         description: data.description,
         package: data.package ?? null,
+        location: data.location ?? null,
+        jobType: data.jobType ?? null,
         minCgpa: data.minCgpa ?? null,
         branches: data.branches,
         skills: data.skills,
@@ -129,7 +143,9 @@ router.post('/', requireAuth('RECRUITER', 'OFFICER'), async (req, res, next) => 
       include: { companyRef: true },
     });
 
-    if (sendAlert === true || sendAlert === undefined) {
+    // Default to broadcasting (old behaviour), but honour an explicit false.
+    let alertResult;
+    if (sendAlert !== false) {
       const alert = {
         subject: `New drive: ${company.name} - ${data.title}`,
         message: [
@@ -137,7 +153,7 @@ router.post('/', requireAuth('RECRUITER', 'OFFICER'), async (req, res, next) => 
           ``,
           `Company: ${company.name}`,
           `Role: ${data.role} (${data.package || 'package as per policy'})`,
-          data.minCgpa ? `Eligibility: CGPA >= ${data.minCgpa}` : null,
+          data.minCgpa != null ? `Eligibility: CGPA >= ${data.minCgpa}` : null,
           data.branches?.length ? `Eligible branches: ${data.branches.join(', ')}` : null,
           data.skills?.length ? `Skills wanted: ${data.skills.join(', ')}` : null,
           deadline ? `Apply by: ${deadline.toISOString().slice(0, 10)}` : null,
@@ -148,10 +164,10 @@ router.post('/', requireAuth('RECRUITER', 'OFFICER'), async (req, res, next) => 
           .join('\n'),
         driveId: drive.id,
       };
-      var alertResult = await broadcast(alert);
+      alertResult = await broadcast(alert);
     }
 
-    res.status(201).json({ drive, alert: alertResult?.status });
+    res.status(201).json({ drive, alert: alertResult?.status ?? 'SKIPPED' });
   } catch (err) {
     next(err);
   }

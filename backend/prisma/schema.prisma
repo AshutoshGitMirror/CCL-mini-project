@@ -45,6 +45,13 @@ model StudentProfile {
   skills         String[] @default([])
   phone          String?
   emailOptIn     Boolean  @default(true)
+  avatarUrl      String?
+  usn            String?
+  college        String?
+  bio            String?
+  linkedinUrl    String?
+  githubUrl      String?
+  portfolioUrl   String?
   updatedAt      DateTime @updatedAt
 
   user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -76,6 +83,8 @@ model Drive {
   description String
   package     String?
   status      String      @default("OPEN")
+  location    String?
+  jobType     String?
 
   minCgpa     Float?
   branches    String[] @default([])
@@ -90,14 +99,15 @@ model Drive {
 }
 
 model Application {
-  id           String           @id @default(cuid())
-  driveId      String
-  userId       String
-  status       ApplicationStatus @default(APPLIED)
-  matchScore   Float            @default(0)
-  currentRound Int              @default(0)
-  rejectedReasons String[]      @default([])
-  createdAt    DateTime         @default(now())
+  id             String           @id @default(cuid())
+  driveId        String
+  userId         String
+  status         ApplicationStatus @default(APPLIED)
+  matchScore     Float            @default(0)
+  currentRound   Int              @default(0)
+  rejectedReasons String[]        @default([])
+  offerLetterUrl String?
+  createdAt      DateTime         @default(now())
 
   drive  Drive          @relation(fields: [driveId], references: [id], onDelete: Cascade)
   user   User           @relation(fields: [userId], references: [id], onDelete: Cascade)

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Megaphone, Radio, Send } from 'lucide-react';
+import { Megaphone, Radio, Send, Users, BarChart3, Briefcase } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { api } from '../api.js';
 import StatCard from '../components/StatCard.jsx';
 import StatusBadge from '../components/StatusBadge.jsx';
@@ -57,9 +58,21 @@ export default function OfficerDashboard() {
 
   return (
     <div className="animate-lift space-y-10">
-      <div>
-        <p className="mono text-[11px] text-ink-faint">training and placement office</p>
-        <h1 className="font-display mt-1 text-3xl font-extrabold tracking-tight text-ink">Everything on one sheet</h1>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="mono text-[11px] text-ink-faint">training and placement office</p>
+          <h1 className="font-display mt-1 text-3xl font-extrabold tracking-tight text-ink">Everything on One Sheet</h1>
+          <p className="mono mt-1 text-xs text-ink-soft">Campus oversight, corporate notices, and broadcast communications</p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <Link to="/talent-pool" className="btn-form !px-3 !py-1.5 !text-xs font-semibold inline-flex items-center gap-1.5">
+            <Users className="h-3.5 w-3.5 text-overprint" /> Student Talent Pool
+          </Link>
+          <Link to="/analytics" className="btn-ink !px-3 !py-1.5 !text-xs font-semibold inline-flex items-center gap-1.5">
+            <BarChart3 className="h-3.5 w-3.5 text-white" /> Placement Analytics
+          </Link>
+        </div>
       </div>
 
       {msg && (

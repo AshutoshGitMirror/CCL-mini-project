@@ -1,0 +1,27 @@
+region               = "us-east-1"
+project              = "placementhub"
+environment          = "production"
+
+# Shared account-A RDS PostgreSQL database (from handoff.md)
+db_url               = "postgresql://placement_app:L21v6dmJkrW252sg3FtZ0sUeCqST@placementhub-db.cofeamqier1q.us-east-1.rds.amazonaws.com:5432/placementhub?schema=public&sslmode=require"
+
+# Shared account-A SNS topic ARN
+sns_topic_arn        = "arn:aws:sns:us-east-1:331146038587:placementhub-drive-alerts"
+
+# EC2 instance configuration
+instance_type        = "t3.micro"
+
+# Resume parser engine: "local" (free) or "textract" (requires Textract access)
+resume_parser        = "local"
+
+# JWT Secret
+jwt_secret           = "placementhub-jwt-secret-prod-2026-key"
+
+# Optional SSH Key name (if you created an AWS key pair in us-east-1)
+key_name             = ""
+
+# Optional CIDR for SSH. Leave empty to keep port 22 closed (SSM still works).
+ssh_cidr             = ""
+
+# AWS Academy: set to "LabInstanceProfile" if your account forbids creating IAM roles
+existing_instance_profile_name = ""

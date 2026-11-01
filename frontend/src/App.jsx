@@ -7,6 +7,8 @@ import Register from './pages/Register.jsx';
 import StudentDashboard from './pages/StudentDashboard.jsx';
 import RecruiterDashboard from './pages/RecruiterDashboard.jsx';
 import OfficerDashboard from './pages/OfficerDashboard.jsx';
+import TalentPool from './pages/TalentPool.jsx';
+import Analytics from './pages/Analytics.jsx';
 
 function Protected({ roles, children }) {
   const { isAuthed, user } = useAuth();
@@ -26,6 +28,8 @@ export default function App() {
         <Route path="/student" element={<Layout><Protected roles={['STUDENT']}><StudentDashboard /></Protected></Layout>} />
         <Route path="/recruiter" element={<Layout><Protected roles={['RECRUITER', 'OFFICER']}><RecruiterDashboard /></Protected></Layout>} />
         <Route path="/officer" element={<Layout><Protected roles={['OFFICER']}><OfficerDashboard /></Protected></Layout>} />
+        <Route path="/talent-pool" element={<Layout><Protected roles={['RECRUITER', 'OFFICER']}><TalentPool /></Protected></Layout>} />
+        <Route path="/analytics" element={<Layout><Protected roles={['RECRUITER', 'OFFICER']}><Analytics /></Protected></Layout>} />
 
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

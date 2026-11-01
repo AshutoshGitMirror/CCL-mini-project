@@ -1,0 +1,373 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1350 860" width="100%" height="100%" style="background:#ffffff; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  <defs>
+    <!-- Soft Shadows -->
+    <filter id="card-shadow" x="-4%" y="-3%" width="108%" height="108%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="3.5" in="SourceAlpha"/>
+      <feOffset dx="1.5" dy="3"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.08"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="glow-shadow" x="-8%" y="-8%" width="116%" height="116%" filterUnits="userSpaceOnUse">
+      <feGaussianBlur stdDeviation="5" in="SourceAlpha"/>
+      <feOffset dx="0" dy="2"/>
+      <feComponentTransfer><feFuncA type="linear" slope="0.12"/></feComponentTransfer>
+      <feMerge><feMergeNode/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <!-- Gradients -->
+    <linearGradient id="aws-banner-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="vpc-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fdf4ff"/>
+      <stop offset="100%" stop-color="#faf5ff"/>
+    </linearGradient>
+    <linearGradient id="subnet-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#f8fafc"/>
+    </linearGradient>
+    <linearGradient id="ec2-header" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f97316"/>
+      <stop offset="100%" stop-color="#ea580c"/>
+    </linearGradient>
+    <linearGradient id="rds-header" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <linearGradient id="s3-header" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+    <linearGradient id="textract-header" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#8b5cf6"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+    <linearGradient id="sns-header" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ec4899"/>
+      <stop offset="100%" stop-color="#db2777"/>
+    </linearGradient>
+    <linearGradient id="cw-header" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#d97706"/>
+    </linearGradient>
+
+    <!-- Markers -->
+    <marker id="arrow-blue" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#0284c7"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#10b981"/>
+    </marker>
+    <marker id="arrow-purple" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrow-pink" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#db2777"/>
+    </marker>
+    <marker id="arrow-amber" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- ================= TOP HEADER BANNER ================= -->
+  <rect x="0" y="0" width="1350" height="66" fill="url(#aws-banner-grad)"/>
+  <rect x="24" y="16" width="36" height="34" rx="6" fill="#f97316"/>
+  <text x="42" y="38" fill="#ffffff" font-size="16" font-weight="900" text-anchor="middle">PH</text>
+  <text x="72" y="34" fill="#ffffff" font-size="18" font-weight="800" letter-spacing="-0.3">PlacementHub: Production AWS Cloud Architecture</text>
+  <text x="72" y="52" fill="#94a3b8" font-size="11">Cloud-Native Campus Placement Platform | Region: us-east-1 | Automated Multi-AZ VPC Deployment</text>
+
+  <!-- AWS Badge -->
+  <rect x="1200" y="18" width="126" height="30" rx="15" fill="#f97316" filter="url(#glow-shadow)"/>
+  <text x="1263" y="37" fill="#ffffff" font-size="11.5" font-weight="800" text-anchor="middle">AWS CLOUD</text>
+
+  <!-- ================= 1. CLIENTS & USERS (LEFT) ================= -->
+  <g transform="translate(24, 84)">
+    <rect x="0" y="0" width="180" height="725" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" filter="url(#card-shadow)"/>
+    <rect x="0" y="0" width="180" height="38" rx="10" fill="#0f172a"/>
+    <text x="90" y="24" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">Clients &amp; Actors</text>
+
+    <!-- Student Card -->
+    <g transform="translate(14, 52)">
+      <rect x="0" y="0" width="152" height="195" rx="8" fill="#ffffff" stroke="#93c5fd" stroke-width="1.2" filter="url(#card-shadow)"/>
+      <circle cx="76" cy="38" r="22" fill="#dbeafe"/>
+      <path d="M 76 26 C 70 26 66 30 66 36 C 66 40 69 43 73 44 C 65 47 61 52 61 58 L 91 58 C 91 52 87 47 79 44 C 83 43 86 40 86 36 C 86 30 82 26 76 26 Z" fill="#1d4ed8"/>
+      <text x="76" y="82" fill="#0f172a" font-size="12" font-weight="700" text-anchor="middle">Student Client</text>
+      <text x="76" y="98" fill="#64748b" font-size="9.5" text-anchor="middle">React 18 SPA (Vite)</text>
+      <line x1="15" y1="112" x2="137" y2="112" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="76" y="128" fill="#334155" font-size="9" text-anchor="middle">• Resume Upload (PDF)</text>
+      <text x="76" y="144" fill="#334155" font-size="9" text-anchor="middle">• ATS Score &amp; Skill Gap</text>
+      <text x="76" y="160" fill="#334155" font-size="9" text-anchor="middle">• Hall Ticket &amp; Gate Pass</text>
+      <text x="76" y="176" fill="#334155" font-size="9" text-anchor="middle">• Company Offer LOI</text>
+    </g>
+
+    <!-- Recruiter Card -->
+    <g transform="translate(14, 270)">
+      <rect x="0" y="0" width="152" height="195" rx="8" fill="#ffffff" stroke="#fcd34d" stroke-width="1.2" filter="url(#card-shadow)"/>
+      <circle cx="76" cy="38" r="22" fill="#fef3c7"/>
+      <path d="M 76 26 C 70 26 66 30 66 36 C 66 40 69 43 73 44 C 65 47 61 52 61 58 L 91 58 C 91 52 87 47 79 44 C 83 43 86 40 86 36 C 86 30 82 26 76 26 Z" fill="#b45309"/>
+      <text x="76" y="82" fill="#0f172a" font-size="12" font-weight="700" text-anchor="middle">Corporate Recruiter</text>
+      <text x="76" y="98" fill="#64748b" font-size="9.5" text-anchor="middle">Company Drive Console</text>
+      <line x1="15" y1="112" x2="137" y2="112" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="76" y="128" fill="#334155" font-size="9" text-anchor="middle">• Publish Hiring Drives</text>
+      <text x="76" y="144" fill="#334155" font-size="9" text-anchor="middle">• Set CGPA &amp; Skill Gates</text>
+      <text x="76" y="160" fill="#334155" font-size="9" text-anchor="middle">• Multi-Round Triage</text>
+      <text x="76" y="176" fill="#334155" font-size="9" text-anchor="middle">• Candidate CSV Export</text>
+    </g>
+
+    <!-- TPO Office Card -->
+    <g transform="translate(14, 490)">
+      <rect x="0" y="0" width="152" height="215" rx="8" fill="#ffffff" stroke="#86efac" stroke-width="1.2" filter="url(#card-shadow)"/>
+      <circle cx="76" cy="38" r="22" fill="#dcfce7"/>
+      <path d="M 76 26 C 70 26 66 30 66 36 C 66 40 69 43 73 44 C 65 47 61 52 61 58 L 91 58 C 91 52 87 47 79 44 C 83 43 86 40 86 36 C 86 30 82 26 76 26 Z" fill="#15803d"/>
+      <text x="76" y="82" fill="#0f172a" font-size="12" font-weight="700" text-anchor="middle">TPO Administration</text>
+      <text x="76" y="98" fill="#64748b" font-size="9.5" text-anchor="middle">Placement Officer Desk</text>
+      <line x1="15" y1="112" x2="137" y2="112" stroke="#e2e8f0" stroke-width="1"/>
+      <text x="76" y="128" fill="#334155" font-size="9" text-anchor="middle">• Broadcast Drive Alerts</text>
+      <text x="76" y="144" fill="#334155" font-size="9" text-anchor="middle">• Student Talent Directory</text>
+      <text x="76" y="160" fill="#334155" font-size="9" text-anchor="middle">• Live Cohort Analytics</text>
+      <text x="76" y="176" fill="#334155" font-size="9" text-anchor="middle">• Multi-Criteria Filter</text>
+      <text x="76" y="192" fill="#334155" font-size="9" text-anchor="middle">• Verification Stamps</text>
+    </g>
+  </g>
+
+  <!-- ================= 2. INTERNET GATEWAY (IGW) ================= -->
+  <g transform="translate(226, 260)">
+    <rect x="0" y="0" width="48" height="280" rx="8" fill="#f1f5f9" stroke="#94a3b8" stroke-dasharray="4,4"/>
+    <text x="24" y="140" fill="#475569" font-size="11" font-weight="800" text-anchor="middle" transform="rotate(-90 24 140)">Internet Gateway (IGW)</text>
+  </g>
+
+  <!-- ================= 3. AMAZON VPC (CENTER CONTAINER) ================= -->
+  <g transform="translate(296, 84)">
+    <rect x="0" y="0" width="650" height="725" rx="12" fill="url(#vpc-bg)" stroke="#c084fc" stroke-width="2" filter="url(#card-shadow)"/>
+    
+    <!-- VPC Header Bar -->
+    <rect x="0" y="0" width="650" height="40" rx="12" fill="#7e22ce"/>
+    <text x="20" y="25" fill="#ffffff" font-size="13" font-weight="800">Amazon VPC (Virtual Private Cloud) — CIDR: 10.0.0.0/16</text>
+    <rect x="525" y="8" width="110" height="24" rx="4" fill="#581c87"/>
+    <text x="580" y="24" fill="#f3e8ff" font-size="10" font-weight="600" text-anchor="middle">Multi-AZ Subnets</text>
+
+    <!-- Public Subnet 1 (AZ: us-east-1a) -->
+    <g transform="translate(18, 55)">
+      <rect x="0" y="0" width="614" height="315" rx="8" fill="url(#subnet-bg)" stroke="#38bdf8" stroke-width="1.3"/>
+      <rect x="0" y="0" width="614" height="28" rx="8" fill="#e0f2fe"/>
+      <text x="16" y="19" fill="#0369a1" font-size="11" font-weight="700">Public Subnet 1 (10.0.0.0/24) | Availability Zone: us-east-1a</text>
+
+      <!-- EC2 Container Inside Subnet 1 -->
+      <g transform="translate(16, 42)">
+        <rect x="0" y="0" width="582" height="255" rx="8" fill="#ffffff" stroke="#fdba74" stroke-width="1.8" filter="url(#card-shadow)"/>
+        
+        <!-- EC2 Header -->
+        <rect x="0" y="0" width="582" height="36" rx="8" fill="url(#ec2-header)"/>
+        <text x="16" y="23" fill="#ffffff" font-size="13" font-weight="800">Amazon EC2 (t3.micro) — Application &amp; Web Server</text>
+        <rect x="440" y="7" width="126" height="22" rx="4" fill="#9a3412"/>
+        <text x="503" y="22" fill="#ffedd5" font-size="9.5" font-weight="700" text-anchor="middle">Port 80 | Ubuntu 22.04</text>
+
+        <!-- Components inside EC2 -->
+        <!-- Frontend Static Dist -->
+        <g transform="translate(16, 50)">
+          <rect x="0" y="0" width="265" height="85" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
+          <text x="12" y="20" fill="#0f172a" font-size="10.5" font-weight="700">Frontend Web Server (Port 80)</text>
+          <text x="12" y="38" fill="#475569" font-size="9">• React 18 Single Page Application (SPA)</text>
+          <text x="12" y="53" fill="#475569" font-size="9">• Hall Ticket &amp; Offer LOI Document Renderer</text>
+          <text x="12" y="68" fill="#475569" font-size="9">• Responsive UI with Tailwind CSS</text>
+        </g>
+
+        <!-- Backend Express API -->
+        <g transform="translate(298, 50)">
+          <rect x="0" y="0" width="268" height="85" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
+          <text x="12" y="20" fill="#0f172a" font-size="10.5" font-weight="700">Node.js Express REST API</text>
+          <text x="12" y="38" fill="#475569" font-size="9">• Stateless JWT Auth &amp; bcrypt Hashing</text>
+          <text x="12" y="53" fill="#475569" font-size="9">• Zod Strict Request Schema Validation</text>
+          <text x="12" y="68" fill="#475569" font-size="9">• Candidate CSV Stream Generator</text>
+        </g>
+
+        <!-- ATS Shortlist Box -->
+        <g transform="translate(16, 146)">
+          <rect x="0" y="0" width="172" height="92" rx="6" fill="#fef2f2" stroke="#f87171"/>
+          <text x="10" y="18" fill="#991b1b" font-size="10" font-weight="800">ATS Shortlisting Engine</text>
+          <text x="10" y="34" fill="#334155" font-size="8.5">• 40% Academic CGPA Gate</text>
+          <text x="10" y="49" fill="#334155" font-size="8.5">• 60% Verified Skill Overlap</text>
+          <text x="10" y="64" fill="#334155" font-size="8.5">• Branch Eligibility Check</text>
+          <text x="10" y="79" fill="#334155" font-size="8.5">• Instant SHORTLIST Verdict</text>
+        </g>
+
+        <!-- Prisma Client Box -->
+        <g transform="translate(202, 146)">
+          <rect x="0" y="0" width="176" height="92" rx="6" fill="#f0fdf4" stroke="#4ade80"/>
+          <text x="10" y="18" fill="#166534" font-size="10" font-weight="800">Prisma 6 ORM Client</text>
+          <text x="10" y="34" fill="#334155" font-size="8.5">• Type-Safe Prepared Queries</text>
+          <text x="10" y="49" fill="#334155" font-size="8.5">• SQL Injection Immune</text>
+          <text x="10" y="64" fill="#334155" font-size="8.5">• PostgreSQL Connection Pool</text>
+          <text x="10" y="79" fill="#334155" font-size="8.5">• Enforced SSL/TLS Security</text>
+        </g>
+
+        <!-- System Daemon Box -->
+        <g transform="translate(392, 146)">
+          <rect x="0" y="0" width="174" height="92" rx="6" fill="#eff6ff" stroke="#60a5fa"/>
+          <text x="10" y="18" fill="#1e40af" font-size="10" font-weight="800">systemd Daemon</text>
+          <text x="10" y="34" fill="#334155" font-size="8.5">• <code>placementhub.service</code></text>
+          <text x="10" y="49" fill="#334155" font-size="8.5">• Auto-Restart on Failure</text>
+          <text x="10" y="64" fill="#334155" font-size="8.5">• In-Guest CloudWatch Agent</text>
+          <text x="10" y="79" fill="#334155" font-size="8.5">• IAM Instance Profile Auth</text>
+        </g>
+      </g>
+    </g>
+
+    <!-- Public Subnet 2 (AZ: us-east-1b) - RDS PostgreSQL -->
+    <g transform="translate(18, 385)">
+      <rect x="0" y="0" width="614" height="320" rx="8" fill="url(#subnet-bg)" stroke="#38bdf8" stroke-width="1.3"/>
+      <rect x="0" y="0" width="614" height="28" rx="8" fill="#e0f2fe"/>
+      <text x="16" y="19" fill="#0369a1" font-size="11" font-weight="700">Public Subnet 2 (10.0.1.0/24) | Availability Zone: us-east-1b</text>
+
+      <!-- RDS Database Container -->
+      <g transform="translate(16, 42)">
+        <rect x="0" y="0" width="582" height="262" rx="8" fill="#ffffff" stroke="#38bdf8" stroke-width="1.8" filter="url(#card-shadow)"/>
+        
+        <!-- RDS Header -->
+        <rect x="0" y="0" width="582" height="36" rx="8" fill="url(#rds-header)"/>
+        <text x="16" y="23" fill="#ffffff" font-size="13" font-weight="800">Amazon RDS — PostgreSQL 16 (db.t3.micro)</text>
+        <rect x="440" y="7" width="126" height="22" rx="4" fill="#075985"/>
+        <text x="503" y="22" fill="#e0f2fe" font-size="9.5" font-weight="700" text-anchor="middle">Port 5432 | 20GB gp3</text>
+
+        <!-- Tables Display -->
+        <g transform="translate(16, 50)">
+          <rect x="0" y="0" width="170" height="96" rx="5" fill="#f8fafc" stroke="#cbd5e1"/>
+          <text x="10" y="18" fill="#0369a1" font-size="10.5" font-weight="700">User &amp; StudentProfile</text>
+          <text x="10" y="35" fill="#475569" font-size="8.5">• id, email, passwordHash</text>
+          <text x="10" y="50" fill="#475569" font-size="8.5">• cgpa, branch, usn, batch</text>
+          <text x="10" y="65" fill="#475569" font-size="8.5">• skills[], avatarUrl, bio</text>
+          <text x="10" y="80" fill="#475569" font-size="8.5">• linkedinUrl, githubUrl</text>
+        </g>
+
+        <g transform="translate(202, 50)">
+          <rect x="0" y="0" width="176" height="96" rx="5" fill="#f8fafc" stroke="#cbd5e1"/>
+          <text x="10" y="18" fill="#0369a1" font-size="10.5" font-weight="700">Company &amp; Drive</text>
+          <text x="10" y="35" fill="#475569" font-size="8.5">• id, title, companyId</text>
+          <text x="10" y="50" fill="#475569" font-size="8.5">• minCgpa, branches[]</text>
+          <text x="10" y="65" fill="#475569" font-size="8.5">• skills[], package (LPA)</text>
+          <text x="10" y="80" fill="#475569" font-size="8.5">• roundsTotal, deadline</text>
+        </g>
+
+        <g transform="translate(392, 50)">
+          <rect x="0" y="0" width="174" height="96" rx="5" fill="#f8fafc" stroke="#cbd5e1"/>
+          <text x="10" y="18" fill="#0369a1" font-size="10.5" font-weight="700">Application &amp; Rounds</text>
+          <text x="10" y="35" fill="#475569" font-size="8.5">• driveId, userId (Unique)</text>
+          <text x="10" y="50" fill="#475569" font-size="8.5">• status, matchScore</text>
+          <text x="10" y="65" fill="#475569" font-size="8.5">• currentRound, reasons[]</text>
+          <text x="10" y="80" fill="#475569" font-size="8.5">• InterviewRound history</text>
+        </g>
+
+        <!-- Database features callout -->
+        <g transform="translate(16, 160)">
+          <rect x="0" y="0" width="550" height="88" rx="6" fill="#f0f9ff" stroke="#bae6fd"/>
+          <text x="12" y="20" fill="#0369a1" font-size="10.5" font-weight="800">ACID Relational Compliance &amp; Concurrency Control</text>
+          <text x="12" y="38" fill="#334155" font-size="9">• <tspan font-weight="bold">Compound Unique Index:</tspan> <code>@@unique([driveId, userId])</code> rejects simultaneous double-click submissions.</text>
+          <text x="12" y="54" fill="#334155" font-size="9">• <tspan font-weight="bold">Foreign Key Cascades:</tspan> Maintains strict referential integrity across drives, applications, and interview rounds.</text>
+          <text x="12" y="70" fill="#334155" font-size="9">• <tspan font-weight="bold">Automated Backups &amp; Snapshots:</tspan> 1-day retention point-in-time recovery on 20 GB gp3 high-speed SSD.</text>
+        </g>
+      </g>
+    </g>
+  </g>
+
+  <!-- ================= 4. MANAGED AWS SERVICES (RIGHT) ================= -->
+  <g transform="translate(970, 84)">
+    <rect x="0" y="0" width="355" height="725" rx="10" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1.5" filter="url(#card-shadow)"/>
+    <rect x="0" y="0" width="355" height="38" rx="10" fill="#1e293b"/>
+    <text x="177" y="24" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">Managed AWS Cloud Services</text>
+
+    <!-- S3 Card -->
+    <g transform="translate(14, 50)">
+      <rect x="0" y="0" width="327" height="145" rx="8" fill="#ffffff" stroke="#a7f3d0" stroke-width="1.2" filter="url(#card-shadow)"/>
+      <rect x="0" y="0" width="327" height="30" rx="8" fill="url(#s3-header)"/>
+      <text x="14" y="20" fill="#ffffff" font-size="11.5" font-weight="800">Amazon S3 — Document Storage</text>
+      <text x="14" y="48" fill="#0f172a" font-size="9.5" font-weight="700">Bucket: <code>placementhub-resumes-*</code></text>
+      <text x="14" y="66" fill="#475569" font-size="9">• <tspan font-weight="bold">Direct Pre-Signed Uploads:</tspan> Browser &#8594; S3 via SigV4 PUT</text>
+      <text x="14" y="82" fill="#475569" font-size="9">• <tspan font-weight="bold">Zero EC2 Bottleneck:</tspan> Binary PDF streams bypass API server</text>
+      <text x="14" y="98" fill="#475569" font-size="9">• <tspan font-weight="bold">Server-Side Encryption:</tspan> AES-256 (SSE-S3) encryption at rest</text>
+      <text x="14" y="114" fill="#475569" font-size="9">• <tspan font-weight="bold">Block Public Access:</tspan> Enabled; private bucket with temporary URLs</text>
+      <text x="14" y="130" fill="#475569" font-size="9">• <tspan font-weight="bold">Deployment Bundle:</tspan> Stores <code>placementhub-app.zip</code> for EC2</text>
+    </g>
+
+    <!-- Textract Card -->
+    <g transform="translate(14, 210)">
+      <rect x="0" y="0" width="327" height="145" rx="8" fill="#ffffff" stroke="#ddd6fe" stroke-width="1.2" filter="url(#card-shadow)"/>
+      <rect x="0" y="0" width="327" height="30" rx="8" fill="url(#textract-header)"/>
+      <text x="14" y="20" fill="#ffffff" font-size="11.5" font-weight="800">Amazon Textract — Document AI / OCR</text>
+      <text x="14" y="48" fill="#0f172a" font-size="9.5" font-weight="700">API: <code>DetectDocumentTextCommand</code></text>
+      <text x="14" y="66" fill="#475569" font-size="9">• <tspan font-weight="bold">Structural OCR:</tspan> Parses <code>LINE</code> and <code>WORD</code> blocks accurately</text>
+      <text x="14" y="82" fill="#475569" font-size="9">• <tspan font-weight="bold">200+ Tech Skills:</tspan> Regex boundary matching: <code>(?&lt;![a-z0-9])</code></text>
+      <text x="14" y="98" fill="#475569" font-size="9">• <tspan font-weight="bold">Academic History:</tspan> Regex parsing for CGPA, branch, batch</text>
+      <text x="14" y="114" fill="#475569" font-size="9">• <tspan font-weight="bold">Cost Optimization:</tspan> Read once, cached in PostgreSQL</text>
+      <text x="14" y="130" fill="#475569" font-size="9">• <tspan font-weight="bold">High Availability:</tspan> Zero-cost fallback to local <code>unpdf</code> library</text>
+    </g>
+
+    <!-- SNS Card -->
+    <g transform="translate(14, 370)">
+      <rect x="0" y="0" width="327" height="145" rx="8" fill="#ffffff" stroke="#fbcfe8" stroke-width="1.2" filter="url(#card-shadow)"/>
+      <rect x="0" y="0" width="327" height="30" rx="8" fill="url(#sns-header)"/>
+      <text x="14" y="20" fill="#ffffff" font-size="11.5" font-weight="800">Amazon SNS — Pub/Sub Drive Broadcast</text>
+      <text x="14" y="48" fill="#0f172a" font-size="9.5" font-weight="700">Topic: <code>placementhub-drive-alerts</code></text>
+      <text x="14" y="66" fill="#475569" font-size="9">• <tspan font-weight="bold">Asynchronous Push:</tspan> Fans out drive releases to student inboxes</text>
+      <text x="14" y="82" fill="#475569" font-size="9">• <tspan font-weight="bold">Decoupled Architecture:</tspan> Eliminates slow SMTP connections</text>
+      <text x="14" y="98" fill="#475569" font-size="9">• <tspan font-weight="bold">Dual-Ledger Audit:</tspan> AWS <code>MessageId</code> recorded in DB</text>
+      <text x="14" y="114" fill="#475569" font-size="9">• <tspan font-weight="bold">Message Attributes:</tspan> Includes <code>driveId</code> metadata</text>
+      <text x="14" y="130" fill="#475569" font-size="9">• <tspan font-weight="bold">Resilience Fallback:</tspan> Local secondary topic ensures live demo</text>
+    </g>
+
+    <!-- CloudWatch & IAM Card -->
+    <g transform="translate(14, 530)">
+      <rect x="0" y="0" width="327" height="175" rx="8" fill="#ffffff" stroke="#fde68a" stroke-width="1.2" filter="url(#card-shadow)"/>
+      <rect x="0" y="0" width="327" height="30" rx="8" fill="url(#cw-header)"/>
+      <text x="14" y="20" fill="#ffffff" font-size="11.5" font-weight="800">Amazon CloudWatch &amp; AWS IAM</text>
+      <text x="14" y="48" fill="#0f172a" font-size="9.5" font-weight="700">Observability &amp; Least-Privilege Security</text>
+      <text x="14" y="66" fill="#475569" font-size="9">• <tspan font-weight="bold">Log Group:</tspan> <code>/aws/placementhub/production</code> (14-day stream)</text>
+      <text x="14" y="82" fill="#475569" font-size="9">• <tspan font-weight="bold">High-CPU Alarm:</tspan> Triggers when CPU &gt; 80% for 2 periods</text>
+      <text x="14" y="98" fill="#475569" font-size="9">• <tspan font-weight="bold">Health Dashboard:</tspan> EC2 CPU Time-Series &amp; StatusChecks</text>
+      <text x="14" y="114" fill="#475569" font-size="9">• <tspan font-weight="bold">IAM Instance Profile:</tspan> Automatic credential rotation (IMDSv2)</text>
+      <text x="14" y="130" fill="#475569" font-size="9">• <tspan font-weight="bold">Zero Hardcoded Secrets:</tspan> Scoped policy on EC2 IAM role</text>
+      <text x="14" y="146" fill="#475569" font-size="9">• <tspan font-weight="bold">Systems Manager (SSM):</tspan> Secure SSH-less terminal shell</text>
+      <text x="14" y="162" fill="#475569" font-size="9">• <tspan font-weight="bold">Infrastructure as Code:</tspan> Terraform 1.9+ automation</text>
+    </g>
+  </g>
+
+  <!-- ================= 5. CONNECTING DATA FLOWS & ARROWS ================= -->
+  <!-- (1) Client to EC2 HTTPS REST -->
+  <path d="M 204 185 L 312 185" fill="none" stroke="#0284c7" stroke-width="2.5" marker-end="url(#arrow-blue)"/>
+  <rect x="220" y="170" width="80" height="18" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1"/>
+  <text x="260" y="183" fill="#0369a1" font-size="8.5" font-weight="800" text-anchor="middle">(1) HTTPS REST</text>
+
+  <!-- (2) Client to S3 DIRECT PUT (SIGV4) -->
+  <path d="M 204 215 Q 580 30 970 160" fill="none" stroke="#10b981" stroke-width="2.8" stroke-dasharray="6,4" marker-end="url(#arrow-green)"/>
+  <rect x="510" y="55" width="220" height="22" rx="4" fill="#ecfdf5" stroke="#10b981" stroke-width="1.2" filter="url(#card-shadow)"/>
+  <text x="620" y="70" fill="#065f46" font-size="9.5" font-weight="800" text-anchor="middle">(2) Direct S3 SigV4 Pre-signed PUT</text>
+
+  <!-- (3) EC2 to RDS SQL -->
+  <path d="M 600 340 L 600 480" fill="none" stroke="#0284c7" stroke-width="2.8" marker-end="url(#arrow-blue)"/>
+  <rect x="545" y="398" width="110" height="20" rx="4" fill="#ffffff" stroke="#0284c7" stroke-width="1.2"/>
+  <text x="600" y="412" fill="#0369a1" font-size="9" font-weight="800" text-anchor="middle">(3) TCP 5432 (SSL)</text>
+
+  <!-- (4) EC2 to S3 (Get PDF Bytes) -->
+  <path d="M 894 200 L 970 170" fill="none" stroke="#10b981" stroke-width="2" marker-end="url(#arrow-green)"/>
+
+  <!-- (5) EC2 to Textract (OCR Stream) -->
+  <path d="M 894 240 L 970 240" fill="none" stroke="#7c3aed" stroke-width="2.5" marker-end="url(#arrow-purple)"/>
+  <rect x="902" y="226" width="62" height="16" rx="3" fill="#f5f3ff" stroke="#7c3aed" stroke-width="0.8"/>
+  <text x="933" y="238" fill="#6d28d9" font-size="8" font-weight="800" text-anchor="middle">(4) OCR</text>
+
+  <!-- (6) EC2 to SNS (Publish Alert) -->
+  <path d="M 894 280 Q 930 330 970 410" fill="none" stroke="#db2777" stroke-width="2.5" marker-end="url(#arrow-pink)"/>
+  <rect x="910" y="340" width="55" height="16" rx="3" fill="#fdf2f8" stroke="#db2777" stroke-width="0.8"/>
+  <text x="937" y="352" fill="#be185d" font-size="8" font-weight="800" text-anchor="middle">(5) SNS</text>
+
+  <!-- (7) EC2 to CloudWatch (Logs & Metrics) -->
+  <path d="M 894 315 Q 930 480 970 580" fill="none" stroke="#d97706" stroke-width="2.2" stroke-dasharray="5,4" marker-end="url(#arrow-amber)"/>
+  <rect x="906" y="490" width="60" height="16" rx="3" fill="#fffbeb" stroke="#d97706" stroke-width="0.8"/>
+  <text x="936" y="502" fill="#92400e" font-size="8" font-weight="800" text-anchor="middle">(6) Logs</text>
+
+  <!-- ================= 6. FOOTER BAR ================= -->
+  <g transform="translate(24, 822)">
+    <rect x="0" y="0" width="1302" height="26" rx="6" fill="#f1f5f9"/>
+    <text x="651" y="17" fill="#475569" font-size="10" font-weight="600" text-anchor="middle">Infrastructure as Code: Defined in Terraform (&gt;=1.5) | HashiCorp AWS Provider ~&gt; 5.0/6.0 | Automated Multi-AZ Security Group Policies</text>
+  </g>
+</svg>

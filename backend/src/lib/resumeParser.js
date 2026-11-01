@@ -74,4 +74,40 @@ async function textractText(bytes) {
     .join('\n');
 }
 
+export function extractAcademicHistory(text) {
+  if (!text) return { cgpa: null, branch: null, graduationYear: null };
+
+  let cgpa = null;
+  // Patterns like CGPA: 8.7, GPA 9.2, 8.5/10, 8.9 CGPA
+  const cgpaMatch1 = text.match(/(?:cgpa|gpa|grade\s*point\s*(?:average)?|aggregate)[\s:=]*([0-9]+(?:\.[0-9]+)?)(?:\s*\/\s*10)?/i);
+  const cgpaMatch2 = text.match(/\b([5-9]\.[0-9]{1,2}|10(?:\.0{1,2})?)\s*(?:\/\s*10|\s*cgpa|\s*gpa)\b/i);
+  if (cgpaMatch1 && cgpaMatch1[1]) {
+    const val = parseFloat(cgpaMatch1[1]);
+    if (!isNaN(val) && val >= 0 && val <= 10) cgpa = val;
+  } else if (cgpaMatch2 && cgpaMatch2[1]) {
+    const val = parseFloat(cgpaMatch2[1]);
+    if (!isNaN(val) && val >= 0 && val <= 10) cgpa = val;
+  }
+
+  let branch = null;
+  if (/computer\s*science|(?<![a-z0-9])cse(?![a-z0-9])/i.test(text)) branch = 'CSE';
+  else if (/artificial\s*intelligence|machine\s*learning|aiml|ai\s*(?:&|\/|\+)\s*ml/i.test(text)) branch = 'AIML';
+  else if (/information\s*technology|(?<![a-z0-9])it(?![a-z0-9])/i.test(text)) branch = 'IT';
+  else if (/electronics\s*(?:and|&)\s*communication|(?<![a-z0-9])ece(?![a-z0-9])/i.test(text)) branch = 'ECE';
+  else if (/electrical\s*(?:and|&)\s*electronics|(?<![a-z0-9])eee(?![a-z0-9])/i.test(text)) branch = 'EEE';
+  else if (/mechanical|(?<![a-z0-9])mech(?![a-z0-9])/i.test(text)) branch = 'MECH';
+  else if (/civil(?:\s*engineering)?/i.test(text)) branch = 'CIVIL';
+
+  let graduationYear = null;
+  const gradMatch = text.match(/(?:batch\s*(?:of)?|class\s*of|graduat(?:ed|ion|ing)?(?:\s*year)?|pass\s*out)[\s:=]*([2][0][2-3][0-9])/i)
+    || text.match(/\b(202[4-9]|203[0-2])\b/);
+  if (gradMatch && gradMatch[1]) {
+    const yr = parseInt(gradMatch[1], 10);
+    if (yr >= 2020 && yr <= 2035) graduationYear = yr;
+  }
+
+  return { cgpa, branch, graduationYear };
+}
+
 export { textractText };
+

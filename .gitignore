@@ -3,6 +3,7 @@
 *.tfstate
 *.tfstate.*
 *.tfvars
+*tfplan*
 crash.log
 
 # secrets / local files
@@ -17,6 +18,51 @@ node_modules/
 dist/
 build/
 
+# generated deployment bundle (Terraform uploads it to S3)
+deploy/
+
 # logs / misc
 *.log
 .DS_Store
+
+# Temporary & testing profiles / scratch scripts / lab assignments
+.temp_*
+*.docx
+*.zip
+*.html
+*.pdf
+check_*
+test_*
+inspect_*
+crop_*
+locate_*
+map_*
+parse_*
+read_*
+search_*
+verify_*
+find_*
+dump_*
+char_*
+analyze_*
+apply_*
+build_*
+fix_*
+convert_*
+generate_*
+extract_*
+get_*
+*.ps1
+*_dir/
+*_images/
+*_pngs/
+cian_*
+dvwa_*
+remcos_*
+lab*
+exp*
+page*.png
+correlate_*
+list_*
+ref_*
+generated_screenshots/

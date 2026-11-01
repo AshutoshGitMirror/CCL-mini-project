@@ -1,17 +1,22 @@
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { Bell } from 'lucide-react';
 import { useAuth, homeFor } from '../auth.jsx';
+import Avatar from './Avatar.jsx';
 
 const NAV = {
-  STUDENT: [{ to: '/student', label: 'My hall ticket' }],
-  RECRUITER: [{ to: '/recruiter', label: 'Drive console' }],
+  STUDENT: [{ to: '/student', label: 'My Hall Ticket' }],
+  RECRUITER: [
+    { to: '/recruiter', label: 'Drive Console' },
+    { to: '/talent-pool', label: 'Talent Pool' },
+    { to: '/analytics', label: 'Placement Analytics' },
+  ],
   OFFICER: [
     { to: '/recruiter', label: 'Drives' },
-    { to: '/officer', label: 'TPO office' },
+    { to: '/officer', label: 'TPO Office' },
+    { to: '/talent-pool', label: 'Talent Pool' },
+    { to: '/analytics', label: 'Placement Analytics' },
   ],
 };
-
-const ROLE_TINT = { STUDENT: 'text-overprint', RECRUITER: 'text-ledger', OFFICER: 'text-ink' };
 
 export default function Layout({ children }) {
   const { isAuthed, user, logout } = useAuth();
@@ -26,7 +31,7 @@ export default function Layout({ children }) {
             <span className="font-display text-xl font-extrabold tracking-tight text-ink">
               Placement<span className="text-overprint">Hub</span>
             </span>
-            <span className="mono hidden text-[10px] text-ink-faint sm:inline">est. roll 10638</span>
+            <span className="mono hidden text-[10px] text-ink-faint sm:inline">campus placement ledger</span>
           </Link>
 
           <nav className="ml-2 hidden items-center gap-1 md:flex">
@@ -59,10 +64,12 @@ export default function Layout({ children }) {
                   <span className="absolute -right-1 -top-1 h-2.5 w-2.5 bg-seal" />
                 </Link>
                 <div className="flex items-center gap-2.5 border-2 border-ink bg-white px-2.5 py-1.5">
-                  {/* ID-card photo box */}
-                  <span className={`grid h-7 w-7 place-items-center border border-ink text-[11px] font-bold ${ROLE_TINT[user.role]}`}>
-                    {user.name?.slice(0, 2).toUpperCase()}
-                  </span>
+                  <Avatar
+                    src={user.profile?.avatarUrl}
+                    name={user.name}
+                    size="sm"
+                    className="!h-6 !w-6 !border border-ink"
+                  />
                   <span className="hidden text-sm leading-tight sm:block">
                     <span className="block font-semibold text-ink">{user.name}</span>
                     <span className="mono block text-[10px] text-ink-faint">{user.role.toLowerCase()}</span>
