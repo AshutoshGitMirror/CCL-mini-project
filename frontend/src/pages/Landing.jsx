@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuth, homeFor } from '../auth.jsx';
+import Avatar from '../components/Avatar.jsx';
 
 /* Knockout barcode, pure CSS */
 function Barcode({ className = '' }) {
@@ -37,15 +38,22 @@ function DriveNoticeTicket() {
 
         <div className="mx-6 my-5 grid grid-cols-[84px_1fr] gap-x-4 border-2 border-ink px-4 py-4 text-[13px]">
           {/* photo box */}
-          <div className="relative h-24 w-20 border-2 border-ink bg-fold">
-            <span className="mono absolute bottom-1 left-0 right-0 text-center text-[9px] text-ink-faint">affix photo</span>
+          <div className="flex flex-col items-center">
+            <Avatar
+              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&auto=format&fit=crop&q=80"
+              name="Aditi Sharma"
+              size="lg"
+              className="!h-24 !w-20 shadow-[2px_2px_0_0_#17233B]"
+            />
+            <span className="mono text-[8px] uppercase tracking-wider text-ink-faint mt-1">Verified Photo</span>
           </div>
           <div className="space-y-2">
             {[
-              ['Candidate', 'Aditi Sharma, CSE, Sem 7', ''],
-              ['Drive', 'Amazon (demo) · AWS Cloud Intern', ''],
-              ['Gate', 'CGPA ≥ 8.0, CSE/IT/ECE/EEE, any 2 of: aws / docker / python', ''],
-              ['Doors', 'through 30 Nov 2026', ''],
+              ['Candidate', 'Aditi Sharma, CSE (IIT Bombay)', ''],
+              ['USN', '1BM22CS001 · Class of 2026', ''],
+              ['Drive', 'Amazon AWS · Cloud Support Intern (12 LPA)', ''],
+              ['Gate', 'CGPA ≥ 8.0, CSE/IT/ECE/AIML, any 2: aws / docker / python', ''],
+              ['Venue', 'APJ Abdul Kalam Tech Block, Lab 3', ''],
             ].map(([k, v]) => (
               <p key={k} className="leading-snug">
                 <span className="mono inline-block w-[72px] text-[10px] text-ink-faint">{k}</span>
@@ -80,7 +88,7 @@ export default function Landing() {
   return (
     <div className="pt-2">
       {/* ---------------------------------------------------------- hero */}
-      <section className="grid items-center gap-14 md:grid-cols-[1fr_460px] md:gap-10">
+      <section className="grid items-center gap-14 lg:grid-cols-[1fr_460px] lg:gap-10">
         <div>
           <h1 className="font-display max-w-[13ch] text-[2.9rem] font-extrabold leading-[0.98] tracking-tight text-ink sm:text-6xl">
             Placement season, administered.

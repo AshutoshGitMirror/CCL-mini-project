@@ -9,7 +9,7 @@ const DEMO = [
 ];
 
 export default function Login() {
-  const { login } = useAuth();
+  const { login, authConfig } = useAuth();
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,6 +39,11 @@ export default function Login() {
         </div>
         <div className="px-7 pb-7 pt-5">
           <p className="text-sm text-ink-soft">Enter your particulars to receive your hall ticket.</p>
+          <div className="mt-2 flex items-center gap-2">
+            <span className="mono rounded border border-ink/20 bg-sand/60 px-2 py-0.5 text-[10px] text-ink-soft">
+              Auth Provider: {authConfig?.authMode === 'cognito' ? 'Amazon Cognito (Cloud Native)' : 'JWT + bcrypt (Local)'}
+            </span>
+          </div>
 
           {error && (
             <p className="mt-4 border-2 border-seal bg-seal/5 px-4 py-3 text-sm text-seal" role="alert">

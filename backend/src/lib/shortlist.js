@@ -19,24 +19,39 @@ export function evaluateDrive(drive, student, extractedSkills) {
     reasons.push(`CGPA ${student.cgpa} < required ${drive.minCgpa}`);
   }
 
-  if (drive.branches?.length && !drive.branches.includes(student.branch)) {
+  if (drive.branches?.length && (!student.branch || !drive.branches.includes(student.branch))) {
     passed = false;
     reasons.push(`Branch ${student.branch || '—'} not eligible (${drive.branches.join(', ')})`);
   }
 
   const listed = (drive.skills || []).map((s) => s.toLowerCase());
   const mine = (extractedSkills || []).map((s) => s.toLowerCase());
-  const matched = listed.filter((s) => mine.includes(s));
-  if (listed.length && matched.length < (drive.minSkills || 1)) {
+  const matchedRaw = listed.filter((s) => mine.includes(s));
+  const missingRaw = listed.filter((s) => !mine.includes(s));
+
+  if (listed.length && matchedRaw.length < (drive.minSkills || 1)) {
     passed = false;
     reasons.push(
-      `Skills matched ${matched.length}/${drive.minSkills || 1} (needs: ${listed.join(', ')})`
+      `Skills matched ${matchedRaw.length}/${drive.minSkills || 1} (needs: ${listed.join(', ')})`
     );
   }
 
-  const skillRatio = listed.length ? matched.length / listed.length : 1;
-  const cgpaPart = student.cgpa != null ? Math.min(1, student.cgpa / 10) * 40 : 0;
-  const score = Math.round(cgpaPart + skillRatio * 60);
+  const skillRatio = listed.length ? matchedRaw.length / listed.length : 1;
+  const cgpaPart = student.cgpa != null ? Math.round(Math.min(1, student.cgpa / 10) * 40) : 0;
+  const skillPart = Math.round(skillRatio * 60);
+  const score = Math.round(cgpaPart + skillPart);
 
-  return { passed, score, matched: matched.map((m) => drive.skills[listed.indexOf(m)]) || matched, reasons };
+  // Preserve original casing from drive definition
+  const matched = matchedRaw.map((m) => drive.skills[listed.indexOf(m)] || m);
+  const missing = missingRaw.map((m) => drive.skills[listed.indexOf(m)] || m);
+
+  return {
+    passed,
+    score,
+    cgpaScore: cgpaPart,
+    skillScore: skillPart,
+    matched,
+    missing,
+    reasons,
+  };
 }

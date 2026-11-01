@@ -92,6 +92,57 @@ resource "aws_sns_topic" "drive_alerts" {
   tags         = { Project = var.project, ManagedBy = "terraform" }
 }
 
+# ----------------------------------------------------------------- auth (Cognito)
+resource "aws_cognito_user_pool" "pool" {
+  name                     = "${var.project}-user-pool"
+  auto_verified_attributes = ["email"]
+  username_attributes      = ["email"]
+
+  password_policy {
+    minimum_length    = 8
+    require_lowercase = true
+    require_numbers   = true
+    require_symbols   = false
+    require_uppercase = false
+  }
+
+  schema {
+    attribute_data_type = "String"
+    name                = "role"
+    mutable             = true
+  }
+
+  tags = { Project = var.project, ManagedBy = "terraform" }
+}
+
+resource "aws_cognito_user_pool_client" "client" {
+  name         = "${var.project}-app-client"
+  user_pool_id = aws_cognito_user_pool.pool.id
+  explicit_auth_flows = [
+    "ALLOW_USER_PASSWORD_AUTH",
+    "ALLOW_REFRESH_TOKEN_AUTH"
+  ]
+  generate_secret = false
+}
+
+resource "aws_cognito_user_group" "students" {
+  name         = "Students"
+  user_pool_id = aws_cognito_user_pool.pool.id
+  description  = "PlacementHub Student candidates"
+}
+
+resource "aws_cognito_user_group" "recruiters" {
+  name         = "Recruiters"
+  user_pool_id = aws_cognito_user_pool.pool.id
+  description  = "Corporate recruitment partners"
+}
+
+resource "aws_cognito_user_group" "officers" {
+  name         = "Officers"
+  user_pool_id = aws_cognito_user_pool.pool.id
+  description  = "Training & Placement Officers (TPO)"
+}
+
 # ---------------------------------------------------------------------- outputs
 output "db_endpoint"   { value = aws_db_instance.this.address }
 output "db_port"       { value = aws_db_instance.this.port }
@@ -102,3 +153,5 @@ output "db_password" {
   sensitive = true
 }
 output "sns_topic_arn" { value = aws_sns_topic.drive_alerts.arn }
+output "cognito_user_pool_id" { value = aws_cognito_user_pool.pool.id }
+output "cognito_client_id"    { value = aws_cognito_user_pool_client.client.id }

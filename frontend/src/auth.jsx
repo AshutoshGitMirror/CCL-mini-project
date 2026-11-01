@@ -1,11 +1,18 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { api, clearSession, getCurrentUser, getToken, saveSession } from './api.js';
 
 const AuthCtx = createContext(null);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(getCurrentUser());
+  const [authConfig, setAuthConfig] = useState({ authMode: 'jwt', isCognitoConfigured: false });
   const isAuthed = Boolean(user && getToken());
+
+  useEffect(() => {
+    api('/auth/config')
+      .then((cfg) => setAuthConfig(cfg))
+      .catch(() => {});
+  }, []);
 
   const login = async (email, password) => {
     const { user: u, token } = await api('/auth/login', { method: 'POST', body: { email, password } });
@@ -26,17 +33,21 @@ export function AuthProvider({ children }) {
     setUser(null);
   };
 
-  const refreshUserFromServer = async () => {
-    if (user?.role === 'STUDENT') {
-      // keeps local name in sync after profile edits
-      const { profile } = await api('/profile/me');
-      if (profile) return { profile };
-    }
-    return null;
-  };
+  // Keep the header in sync when the server returns a fresher user record.
+  const syncUser = useCallback((u) => {
+    if (!u) return;
+    saveSession(u, getToken());
+    setUser(u);
+  }, []);
+
+  const refreshUserFromServer = useCallback(async () => {
+    const { user: u } = await api('/auth/me');
+    syncUser(u);
+    return u;
+  }, [syncUser]);
 
   return (
-    <AuthCtx.Provider value={{ user, isAuthed, login, register, logout, refreshUserFromServer }}>
+    <AuthCtx.Provider value={{ user, isAuthed, authConfig, login, register, logout, syncUser, refreshUserFromServer }}>
       {children}
     </AuthCtx.Provider>
   );

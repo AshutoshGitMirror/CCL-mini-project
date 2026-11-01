@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: placementhub-backend
+    restart: unless-stopped
+    environment:
+      - DATABASE_URL=postgresql://placement_app:L21v6dmJkrW252sg3FtZ0sUeCqST@placementhub-db.cofeamqier1q.us-east-1.rds.amazonaws.com:5432/placementhub?schema=public&sslmode=require
+      - JWT_SECRET=placementhub-prod-secret-key-change-me-2026
+      - AWS_REGION=us-east-1
+      - S3_BUCKET=placementhub-resumes-prod
+      - SNS_TOPIC_ARN=arn:aws:sns:us-east-1:331146038587:placementhub-drive-alerts
+      - SNS_FALLBACK_TOPIC_ARN=
+      - SNS_ENDPOINT_URL=
+      - RESUME_PARSER=local
+      - PORT=4000
+    expose:
+      - '4000'
+    healthcheck:
+      test: ['CMD', 'wget', '--no-verbose', '--tries=1', '--spider', 'http://localhost:4000/api/health']
+      interval: 15s
+      timeout: 5s
+      retries: 3
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: placementhub-frontend
+    restart: unless-stopped
+    ports:
+      - '80:80'
+    depends_on:
+      - backend

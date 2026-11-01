@@ -16,38 +16,76 @@ const sns = new SNSClient({
   ...(endpoint ? { endpoint, forcePathStyle: true } : {}),
 });
 
+const primaryTopic = () => process.env.SNS_TOPIC_ARN || '';
+const fallbackTopic = () => process.env.SNS_FALLBACK_TOPIC_ARN || '';
+
 export function transport() {
-  if (process.env.SNS_TOPIC_ARN) return 'sns';
+  if (primaryTopic() || fallbackTopic()) return 'sns';
   return 'log';
 }
 
+async function publish(topicArn, { subject, message, driveId }) {
+  const res = await sns.send(
+    new PublishCommand({
+      TopicArn: topicArn,
+      Subject: subject.slice(0, 99), // SNS subject cap
+      Message: message,
+      MessageAttributes: driveId
+        ? { driveId: { DataType: 'String', StringValue: driveId } }
+        : undefined,
+    })
+  );
+  return res.MessageId;
+}
+
 export async function broadcast({ subject, message, driveId = null }) {
-  const topicArn = process.env.SNS_TOPIC_ARN;
+  const primary = primaryTopic();
+  const fallback = fallbackTopic();
+
   let status = 'LOGGED';
   let messageId = null;
 
-  if (topicArn) {
+  if (primary) {
     try {
-      const res = await sns.send(
-        new PublishCommand({
-          TopicArn: topicArn,
-          Subject: subject.slice(0, 99),   // SNS subject cap
-          Message: message,
-          MessageAttributes: driveId
-            ? { driveId: { DataType: 'String', StringValue: driveId } }
-            : undefined,
-        })
-      );
-      messageId = res.MessageId;
+      messageId = await publish(primary, { subject, message, driveId });
+      status = 'SENT';
+    } catch (err) {
+      console.error('[sns] primary publish failed:', err.message);
+
+      // The shared topic lives in another account. Until its policy grants
+      // this account sns:Publish, keep the demo alive through a local topic.
+      if (fallback && fallback !== primary) {
+        try {
+          messageId = await publish(fallback, { subject, message, driveId });
+          status = 'SENT';
+          console.warn('[sns] published through the local fallback topic');
+        } catch (fallbackErr) {
+          status = `FAILED: ${err.message}`;
+          console.error('[sns] fallback publish failed:', fallbackErr.message);
+        }
+      } else {
+        status = `FAILED: ${err.message}`;
+      }
+    }
+  } else if (fallback) {
+    try {
+      messageId = await publish(fallback, { subject, message, driveId });
       status = 'SENT';
     } catch (err) {
       status = `FAILED: ${err.message}`;
-      console.error('[sns] publish failed:', err.message);
+      console.error('[sns] fallback publish failed:', err.message);
     }
   }
 
   const record = await prisma.notification.create({
-    data: { subject, message, channel: topicArn ? 'SNS' : 'INAPP', messageId, status, driveId },
+    data: {
+      subject,
+      message,
+      channel: primary || fallback ? 'SNS' : 'INAPP',
+      messageId,
+      status,
+      driveId,
+    },
   });
 
   return { status, messageId, notification: record };
